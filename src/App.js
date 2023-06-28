@@ -1,6 +1,10 @@
+import Cars from "./Cars";
+
 function App() {
   return (
-    <div className="App"></div>
+    <div className="App">
+      <Cars />
+    </div>
   );
 }
 
