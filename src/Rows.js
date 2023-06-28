@@ -1,4 +1,4 @@
-const CarsTable = ({ cars }) => {
+const Rows = ({ cars }) => {
   return (
     <>
       {
@@ -24,4 +24,4 @@ const CarsTable = ({ cars }) => {
 
 
   
-export default CarsTable;
+export default Rows;

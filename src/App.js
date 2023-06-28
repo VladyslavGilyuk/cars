@@ -1,9 +1,13 @@
-import Cars from "./Cars";
-
+import Table from "./Table";
+import SearchBar from "./components/SearchBar";
+import { CarsProvider } from "./CarsContext";
 function App() {
   return (
     <div className="App">
-      <Cars />
+      <CarsProvider >
+        <SearchBar />
+        <Table />
+      </CarsProvider>
     </div>
   );
 }
