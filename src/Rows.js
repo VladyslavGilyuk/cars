@@ -12,7 +12,7 @@ const Rows = ({ cars }) => {
               <td>{car_color}</td>
               <td>{car_model_year}</td>
               <td>{price}</td>
-              <td>{availability ? "available" : "inavailable"}</td>
+              <td>{availability ? "available" : "unavailable"}</td>
               <td>{"Dropdown button"}</td>
             </tr>
           )

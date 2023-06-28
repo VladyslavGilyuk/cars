@@ -1,4 +1,3 @@
-import Table from "./Table";
 import SearchBar from "./components/SearchBar";
 import { CarsProvider } from "./CarsContext";
 function App() {
@@ -6,7 +5,6 @@ function App() {
     <div className="App">
       <CarsProvider >
         <SearchBar />
-        <Table />
       </CarsProvider>
     </div>
   );
