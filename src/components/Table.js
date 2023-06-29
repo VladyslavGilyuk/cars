@@ -3,7 +3,7 @@ import Rows from "./Rows";
 import Pagination from './Pagination';
 import '../styles/pagination.css';
 
-const Table = ({ cars, setCars, searchedTableData, searchedCars, updatedPage, setUpdatedPage, deleteCar }) => {
+const Table = ({ cars, setCars, searchedTableData, searchedCars, updatedPage, setUpdatedPage, deleteCar, editCar }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
@@ -31,7 +31,7 @@ const Table = ({ cars, setCars, searchedTableData, searchedCars, updatedPage, se
           </tr>
         </thead>
         <tbody>
-          <Rows cars={searchedTableData && searchedTableData.length > 0 ? searchedTableData : currentTableData} deleteCar={deleteCar} setCars={setCars}/>
+          <Rows cars={searchedTableData && searchedTableData.length > 0 ? searchedTableData : currentTableData} deleteCar={deleteCar} setCars={setCars} editCar={editCar}/>
         </tbody>
       </table>
       <Pagination

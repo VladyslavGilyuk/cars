@@ -8,6 +8,7 @@ const App = () => {
   const [searchedCars, setSearchedCars] = useState([]);
   const [updatedPage, setUpdatedPage] = useState(1);
 
+
   const API = 'https://myfakeapi.com/api/cars/';
   const pageSize = 10;
 
@@ -71,6 +72,25 @@ const App = () => {
     localStorage.setItem("cars", JSON.stringify(updatedCars));
   };
 
+  const editCar = (carId, carColor, carPrice, carAvailability) => {
+    const updatedCars = cars.map((car) => {
+      if (car.id === carId) {
+        return {
+          ...car,
+          car_color: carColor,
+          price: carPrice,
+          availability: carAvailability === "available",
+        };
+      }
+      return car;
+    });
+
+    setCars(updatedCars);
+    setSearchedCars(updatedCars);
+    localStorage.setItem("cars", JSON.stringify(updatedCars))
+  };
+
+
   return (
     <div className="App">
       <SearchBar searchInput={searchInput} handleChange={handleChange} />
@@ -81,8 +101,10 @@ const App = () => {
         searchedCars={searchedCars}
         updatedPage={updatedPage}
         setUpdatedPage={setUpdatedPage}
+        setSearchedCars={setSearchedCars}
         pageSize={pageSize}
         deleteCar={deleteCar}
+        editCar={editCar}
       />
     </div>
   );

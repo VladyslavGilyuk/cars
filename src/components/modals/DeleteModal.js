@@ -1,10 +1,9 @@
 import React from "react";
 import "../../styles/modal.css"
 
-const DeleteModal = ({ carId, onClose, cars, setCars }) => {
+const DeleteModal = ({ carId, onClose, cars, setCars, deleteCar }) => {
   const handleDelete = () => {
-    const updatedCars = cars.filter((car) => car.id !== carId);
-    setCars(updatedCars);
+    deleteCar(carId)
     onClose();
   };
 

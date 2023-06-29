@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../styles/modal.css"
 
-const EditModal = ({ carId, onClose, cars, setCars }) => {
+const EditModal = ({ carId, onClose, cars, setCars, editCar }) => {
   // Add state variables and update functions for editable fields
   const [carColor, setCarColor] = useState("");
   const [carPrice, setCarPrice] = useState("");
@@ -21,20 +21,11 @@ const EditModal = ({ carId, onClose, cars, setCars }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+   
+   
+    editCar(carId, carColor, carPrice, carAvailability)
 
-    const updatedCars = cars.map((car) => {
-      if (car.id === carId) {
-        return {
-          ...car,
-          car_color: carColor,
-          price: carPrice,
-          availability: carAvailability === "available",
-        };
-      }
-      return car;
-    });
 
-    setCars(updatedCars);
     onClose();
   };
 
