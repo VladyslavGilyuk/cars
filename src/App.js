@@ -1,9 +1,8 @@
+import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
-import { useState, useEffect, useMemo } from "react";
 import Table from "./components/Table";
 
-function App() {
-
+const App = () => {
   const [cars, setCars] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [searchedCars, setSearchedCars] = useState([]);
@@ -12,16 +11,21 @@ function App() {
   const API = 'https://myfakeapi.com/api/cars/';
   const pageSize = 10;
 
-  // Fetch data and update cars state
   useEffect(() => {
-    fetch(API)
-      .then(res => res.json())
-      .then(data => {
-        setCars(data.cars);
-      });
+    const savedCars = localStorage.getItem("cars");
+    if (savedCars && savedCars !== []) {
+      setCars(JSON.parse(savedCars));
+    } else {
+      fetch(API)
+        .then(res => res.json())
+        .then(data => {
+          setCars(data.cars);
+          localStorage.setItem("cars", JSON.stringify(data.cars));
+          console.log(data.cars)
+        });
+    }
   }, []);
 
-  // Check if input exist and update searchedCars state
   useEffect(() => {
     if (searchInput.length > 0) {
       const filteredCars = cars.filter((car) => {
@@ -49,33 +53,37 @@ function App() {
     }
   }, [searchInput, cars]);
 
-  // Data to use pagination for input results only
-  const searchedTableData = useMemo(() => {
-    const firstPageIndex = (updatedPage - 1) * pageSize;
-    const lastPageIndex = firstPageIndex + pageSize;
-    return searchedCars.slice(firstPageIndex, lastPageIndex);
-  }, [updatedPage, searchedCars]);
+  const searchedTableData = searchedCars.slice(
+    (updatedPage - 1) * pageSize,
+    updatedPage * pageSize
+  );
 
-  // Reset the page to 1 when search input changes
   const handleChange = (e) => {
     e.preventDefault();
     setSearchInput(e.target.value);
-    setUpdatedPage(1); 
+    setUpdatedPage(1);
+  };
+
+  const deleteCar = (carId) => {
+    const updatedCars = cars.filter((car) => car.id !== carId);
+    setCars(updatedCars);
+    setSearchedCars(updatedCars);
+    localStorage.setItem("cars", JSON.stringify(updatedCars));
   };
 
   return (
     <div className="App">
-        <SearchBar
-        searchInput={searchInput}
-        handleChange={handleChange}/>
-        <Table
+      <SearchBar searchInput={searchInput} handleChange={handleChange} />
+      <Table
         cars={cars}
+        setCars={setCars}
         searchedTableData={searchedTableData}
         searchedCars={searchedCars}
         updatedPage={updatedPage}
         setUpdatedPage={setUpdatedPage}
-        pageSize = {pageSize}
-        />
+        pageSize={pageSize}
+        deleteCar={deleteCar}
+      />
     </div>
   );
 }
