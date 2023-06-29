@@ -1,3 +1,6 @@
+import React from "react";
+import DropdownButton from "./DropdownButton";
+
 const Rows = ({ cars }) => {
   return (
     <>
@@ -13,7 +16,7 @@ const Rows = ({ cars }) => {
               <td>{car_model_year}</td>
               <td>{price}</td>
               <td>{availability ? "available" : "unavailable"}</td>
-              <td>{"Dropdown button"}</td>
+              <td><DropdownButton /></td>
             </tr>
           )
         })

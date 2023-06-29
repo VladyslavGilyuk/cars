@@ -1,20 +1,17 @@
-import React, {  useState, useMemo, useContext } from "react";
+import React, {  useState, useMemo } from "react";
 import Rows from "./Rows";
-import Pagination from './components/Pagination';
-import { CarsContext } from "./CarsContext";
-import './styles/pagination.css';
+import Pagination from './Pagination';
+import '../styles/pagination.css';
 
+const Table = ( { cars, searchedTableData, searchedCars, updatedPage, setUpdatedPage }) => {
 
-
-const Table = ( { searchedTableData, searchedCars, updatedPage, setUpdatedPage }) => {
-
-  const { cars } = useContext(CarsContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const PageSize = 10;
-
+  const pageSize = 10;
+  
+  // Data for base pagination
   const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
+    const firstPageIndex = (currentPage - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
     return cars.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, cars]);
  
@@ -41,7 +38,7 @@ const Table = ( { searchedTableData, searchedCars, updatedPage, setUpdatedPage }
         className="pagination-bar"
         currentPage={searchedCars && searchedCars.length > 0 ? updatedPage : currentPage}
         totalCount={searchedCars && searchedCars.length > 0 ? searchedCars.length : cars.length}
-        pageSize={PageSize}
+        pageSize={pageSize}
         onPageChange={page => searchedCars && searchedCars.length > 0 ? setUpdatedPage(page) : setCurrentPage(page)}
       />
     </>
