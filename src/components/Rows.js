@@ -25,7 +25,7 @@ const Rows = ({ cars, deleteCar, editCar}) => {
             <td>{price}</td>
             <td>{availability ? "available" : "unavailable"}</td>
             <td>
-              <DropdownButton carId={id} deleteCar={deleteCar} editCar={editCar} />
+              <DropdownButton carId={id} deleteCar={deleteCar} editCar={editCar}/>
             </td>
           </tr>
         );

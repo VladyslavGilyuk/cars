@@ -7,8 +7,14 @@ const App = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchedCars, setSearchedCars] = useState([]);
   const [updatedPage, setUpdatedPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    localStorage.getItem("currentPage")
+      ? parseInt(localStorage.getItem("currentPage"))
+      : 1
+  );
 
-
+    
+  
   const API = 'https://myfakeapi.com/api/cars/';
   const pageSize = 10;
 
@@ -27,6 +33,23 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+  const savedPage = localStorage.getItem("currentPage");
+  const savedSearchInput = localStorage.getItem("searchInput");
+  if (savedPage) {
+    setCurrentPage(parseInt(savedPage));
+  }
+  if (savedSearchInput) {
+    setSearchInput(savedSearchInput);
+  }
+}, []);
+
+useEffect(() => {
+  localStorage.setItem("currentPage", currentPage);
+  localStorage.setItem("searchInput", searchInput);
+}, [currentPage, searchInput]);
+
+  
   useEffect(() => {
     if (searchInput.length > 0) {
       const filteredCars = cars.filter((car) => {
@@ -51,6 +74,7 @@ const App = () => {
       });
 
       setSearchedCars(filteredCars);
+      
     }
   }, [searchInput, cars]);
 
@@ -59,18 +83,31 @@ const App = () => {
     updatedPage * pageSize
   );
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setSearchInput(e.target.value);
-    setUpdatedPage(1);
-  };
+const handleChange = (e) => {
+  e.preventDefault();
+  setSearchInput(e.target.value);
+  setUpdatedPage(1); // Reset to the first page
+};
 
-  const deleteCar = (carId) => {
-    const updatedCars = cars.filter((car) => car.id !== carId);
-    setCars(updatedCars);
-    setSearchedCars(updatedCars);
-    localStorage.setItem("cars", JSON.stringify(updatedCars));
-  };
+const deleteCar = (carId) => {
+  const updatedCars = cars.filter((car) => car.id !== carId);
+  setCars(updatedCars);
+  setSearchedCars(updatedCars);
+  
+  // Calculate the new page number based on the position of the deleted row
+  const totalRows = searchedCars.length;
+  const currentPageIndex = (updatedPage - 1) * pageSize;
+  
+  // Check if the deleted row is the last row on the current page
+  if (currentPageIndex === totalRows && updatedPage > 1) {
+    setUpdatedPage(updatedPage - 1); // Go back to the previous page
+  } else {
+    setUpdatedPage(updatedPage); // Stay on the current page
+  }
+  
+  localStorage.setItem("cars", JSON.stringify(updatedCars));
+};
+
 
   const editCar = (carId, carColor, carPrice, carAvailability) => {
     const updatedCars = cars.map((car) => {
@@ -87,9 +124,17 @@ const App = () => {
 
     setCars(updatedCars);
     setSearchedCars(updatedCars);
+    const totalRows = searchedCars.length;
+    const currentPageIndex = (updatedPage - 1) * pageSize;
+  
+  // Check if the deleted row is the last row on the current page
+  if (currentPageIndex === totalRows && updatedPage > 1) {
+    setUpdatedPage(updatedPage - 1); // Go back to the previous page
+  } else {
+    setUpdatedPage(updatedPage); // Stay on the current page
+  }
     localStorage.setItem("cars", JSON.stringify(updatedCars))
   };
-
 
   return (
     <div className="App">
@@ -105,6 +150,8 @@ const App = () => {
         pageSize={pageSize}
         deleteCar={deleteCar}
         editCar={editCar}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   );

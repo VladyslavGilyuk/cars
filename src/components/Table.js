@@ -1,11 +1,10 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import Rows from "./Rows";
 import Pagination from './Pagination';
 import '../styles/pagination.css';
 
-const Table = ({ cars, searchedTableData, searchedCars, updatedPage, setUpdatedPage, deleteCar, editCar }) => {
-
-  const [currentPage, setCurrentPage] = useState(1);
+const Table = ({ cars, searchedTableData, searchedCars, updatedPage, setUpdatedPage, deleteCar, editCar, currentPage, setCurrentPage }) => {
+  
   const pageSize = 10;
 
   // Data for base pagination
