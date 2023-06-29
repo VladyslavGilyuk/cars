@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/modal.css"
 
-const DeleteModal = ({ carId, onClose, cars, setCars, deleteCar }) => {
+const DeleteModal = ({ carId, onClose, deleteCar }) => {
   const handleDelete = () => {
     deleteCar(carId)
     onClose();

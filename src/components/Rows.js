@@ -1,7 +1,7 @@
 import React from "react";
 import DropdownButton from "./DropdownButton";
 
-const Rows = ({ cars, setCars, deleteCar, editCar}) => {
+const Rows = ({ cars, deleteCar, editCar}) => {
   return (
     <>
       {cars.map((currentCar) => {
@@ -25,7 +25,7 @@ const Rows = ({ cars, setCars, deleteCar, editCar}) => {
             <td>{price}</td>
             <td>{availability ? "available" : "unavailable"}</td>
             <td>
-              <DropdownButton carId={id} cars={cars} deleteCar={deleteCar} setCars={setCars} editCar={editCar} />
+              <DropdownButton carId={id} deleteCar={deleteCar} editCar={editCar} />
             </td>
           </tr>
         );

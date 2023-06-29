@@ -3,7 +3,7 @@ import EditModal from "./modals/EditModal";
 import DeleteModal from "./modals/DeleteModal";
 import "../styles/dropdownButton.css";
 
-const DropdownButton = ({ carId, cars, setCars, deleteCar, editCar}) => {
+const DropdownButton = ({ carId, deleteCar, editCar}) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -32,11 +32,11 @@ const DropdownButton = ({ carId, cars, setCars, deleteCar, editCar}) => {
       </div>
 
       {showEditModal && (
-        <EditModal carId={carId} onClose={handleEditModalClose} cars={cars} setCars={setCars} editCar={editCar}/>
+        <EditModal carId={carId} onClose={handleEditModalClose} editCar={editCar}/>
       )}
 
       {showDeleteModal && (
-        <DeleteModal carId={carId} onClose={handleDeleteModalClose} cars={cars} setCars={setCars} deleteCar={deleteCar} />
+        <DeleteModal carId={carId} onClose={handleDeleteModalClose} deleteCar={deleteCar} />
       )}
     </span>
   );

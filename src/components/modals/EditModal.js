@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "../../styles/modal.css"
 
-const EditModal = ({ carId, onClose, cars, setCars, editCar }) => {
+const EditModal = ({ carId, onClose, editCar }) => {
   // Add state variables and update functions for editable fields
   const [carColor, setCarColor] = useState("");
   const [carPrice, setCarPrice] = useState("");
-  const [carAvailability, setCarAvailability] = useState("");
+  const [carAvailability, setCarAvailability] = useState("available");
 
   const handleColorChange = (e) => {
     setCarColor(e.target.value);
@@ -21,11 +21,7 @@ const EditModal = ({ carId, onClose, cars, setCars, editCar }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
-   
     editCar(carId, carColor, carPrice, carAvailability)
-
-
     onClose();
   };
 
@@ -51,7 +47,10 @@ const EditModal = ({ carId, onClose, cars, setCars, editCar }) => {
           />
 
           <label>Availability:</label>
-          <select value={carAvailability} onChange={handleAvailabilityChange}>
+          <select
+            value={"available"}
+            onChange={handleAvailabilityChange}
+          >
             <option value="available">Available</option>
             <option value="unavailable">Unavailable</option>
           </select>
