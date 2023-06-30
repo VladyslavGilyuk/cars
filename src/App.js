@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import Table from "./components/Table";
+import AddCarButton from "./components/AddCarButton";
 
 const App = () => {
   const [cars, setCars] = useState([]);
@@ -93,8 +94,8 @@ useEffect(() => {
   }, [searchInput, cars]);
 
   const searchedTableData = searchedCars.slice(
-    (updatedPage - 1) * pageSize,
-    updatedPage * pageSize
+    (searchedPage - 1) * pageSize,
+    searchedPage * pageSize
   );
 
 const handleChange = (e) => {
@@ -126,10 +127,24 @@ const deleteCar = (carId) => {
     setCars(updatedCars);
     localStorage.setItem("cars", JSON.stringify(updatedCars))
   };
-
+  const addCar = (newCar) => {
+    // Generate a new ID for the car
+    const newId = cars.length > 0 ? cars[cars.length - 1].id + 1 : 1;
+  
+    // Create a new car object with the generated ID
+    const carWithId = { ...newCar, id: newId };
+  
+    // Update the cars state with the new car
+    const updatedCars = [...cars, carWithId]
+    setCars(updatedCars);
+    localStorage.setItem("cars", JSON.stringify(updatedCars))
+  };
+  
+  
   return (
     <div className="App">
       <SearchBar searchInput={searchInput} handleChange={handleChange} />
+      <AddCarButton addCar={addCar} />
       <Table
         cars={cars}
         setCars={setCars}
@@ -145,6 +160,7 @@ const deleteCar = (carId) => {
         setCurrentPage={setCurrentPage}
         searchedPage={searchedPage}
         setSearchedPage={setSearchedPage}
+        
       />
     </div>
   );

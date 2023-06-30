@@ -42,9 +42,9 @@ const Table = ({ cars, searchedTableData, searchedCars, searchedPage, setSearche
   currentPage={searchedCars.length > 0 ? searchedPage : currentPage}
   totalCount={searchedCars.length > 0 ? searchedCars.length : cars.length}
   pageSize={pageSize}
-  onPageChange={(page) =>
-    searchedCars.length > 0 ? setSearchedPage(page) : setCurrentPage(page)
-  }
+  onPageChange={page =>
+  searchedCars.length > 0 ? setSearchedPage(page) : setCurrentPage(page)
+}
 />
 
     </>
