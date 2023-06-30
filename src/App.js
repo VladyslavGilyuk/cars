@@ -93,18 +93,20 @@ const deleteCar = (carId) => {
   const updatedCars = cars.filter((car) => car.id !== carId);
   setCars(updatedCars);
   setSearchedCars(updatedCars);
-  
+
   // Calculate the new page number based on the position of the deleted row
-  const totalRows = searchedCars.length;
-  const currentPageIndex = (updatedPage - 1) * pageSize;
-  
+  const totalRows = updatedCars.length;
+  const currentPageIndex = (currentPage - 1) * pageSize;
+
   // Check if the deleted row is the last row on the current page
-  if (currentPageIndex === totalRows && updatedPage > 1) {
-    setUpdatedPage(updatedPage - 1); // Go back to the previous page
+  if (currentPageIndex >= totalRows && currentPage > 1) {
+    const newPage = Math.ceil(totalRows / pageSize);
+    setUpdatedPage(newPage); // Go to the last page if the deleted row was the last row on the current page
+    setCurrentPage(newPage); // Update the currentPage state to reflect the new page
   } else {
-    setUpdatedPage(updatedPage); // Stay on the current page
+    setUpdatedPage(currentPage); // Stay on the current page
   }
-  
+
   localStorage.setItem("cars", JSON.stringify(updatedCars));
 };
 
@@ -124,14 +126,16 @@ const deleteCar = (carId) => {
 
     setCars(updatedCars);
     setSearchedCars(updatedCars);
-    const totalRows = searchedCars.length;
-    const currentPageIndex = (updatedPage - 1) * pageSize;
-  
+    const totalRows = updatedCars.length;
+  const currentPageIndex = (currentPage - 1) * pageSize;
+
   // Check if the deleted row is the last row on the current page
-  if (currentPageIndex === totalRows && updatedPage > 1) {
-    setUpdatedPage(updatedPage - 1); // Go back to the previous page
+  if (currentPageIndex >= totalRows && currentPage > 1) {
+    const newPage = Math.ceil(totalRows / pageSize);
+    setUpdatedPage(newPage); // Go to the last page if the deleted row was the last row on the current page
+    setCurrentPage(newPage); // Update the currentPage state to reflect the new page
   } else {
-    setUpdatedPage(updatedPage); // Stay on the current page
+    setUpdatedPage(currentPage); // Stay on the current page
   }
     localStorage.setItem("cars", JSON.stringify(updatedCars))
   };
