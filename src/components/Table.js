@@ -8,7 +8,7 @@ const Table = ({ cars, searchedTableData, searchedCars, searchedPage, setSearche
 
   const pageSize = 10;
 
-  // Data for base pagination
+  // Data for base pagination (not for Search results)
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
@@ -18,11 +18,14 @@ const Table = ({ cars, searchedTableData, searchedCars, searchedPage, setSearche
     );
   }, [currentPage, pageSize, cars, searchedCars]);
 
-  // Deleting the last row from the page switches to the previous page
+  // Switch to the previous page if last row is deleted in the current
   if (currentTableData.length === 0 && currentPage !== 1) {
     setCurrentPage(currentPage - 1);
   }
-  const showedCars= searchedTableData && searchedTableData.length > 0 ? searchedTableData : currentTableData
+  
+  // Show either search or all results 
+  const showedCars= searchedTableData && searchedTableData.length > 0 ? searchedTableData : currentTableData;
+
   return (
     <>
       <table>

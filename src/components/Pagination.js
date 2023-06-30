@@ -20,7 +20,6 @@ const Pagination = props => {
     pageSize
   });
 
-  // If there are less than 2 times in pagination range we shall not render the component
   if (currentPage === 0 || paginationRange.length < 2) {
     return null;
   }
@@ -54,7 +53,6 @@ const Pagination = props => {
           return <li className="pagination-item dots">&#8230;</li>;
         }
 		
-        // Render our Page Pills
         return (
           <li
             className={classnames('pagination-item', {

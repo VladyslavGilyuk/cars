@@ -1,104 +1,24 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    width: 100%;
-  }
-  
-  .modal-content h2 {
-    margin-top: 0;
-  }
-  
-  .modal-content form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .modal-content form label {
-    margin-bottom: 5px;
-  }
-  
-  .modal-content form input,
-  .modal-content form select {
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-  }
-  
-  .modal-content form button {
-    padding: 8px 16px;
-    background-color: #62d06d;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 2px;
-  }
-  
-  .modal-content form button[type="button"] {
-    background-color: #aeabab;
-  }
-
-  .modal-content form button[type="button"]:hover {
-    background-color: #6d6b6b;
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-.add-button:hover, .save-button:hover {
-  background-color: #2f8d39;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
-  .delete-button {
-    width: 100px;
-    color: #fff;
-    background-color: #d63232;
-    padding: 10px;
-    border-radius: 10px;
-    margin-right: 10px;
-    border: none;
-    
-  }
-
-  .delete-button:hover {
-    background-color: #b01d1d;
-  }
   
-  .cancel-button { 
-    width: 100px;
-    color: #fff;
-    background-color: #aeabab;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-  }
-
-  .cancel-button:hover {
-    background-color: #6d6b6b;
-  }
-
-  .error {
-    font-weight: bold;
-  }
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  width: 100%;
+}
 
 .modal-background {
   position: fixed;
@@ -112,8 +32,86 @@
   justify-content: center;
 }
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 4px;
+.modal-content h2 {
+  margin-top: 0;
 }
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content form label {
+  margin-bottom: 5px;
+}
+
+.modal-content form input,
+.modal-content form select {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.modal-content form button {
+  padding: 8px 16px;
+  background-color: #62d06d;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+
+.modal-content form button[type="button"] {
+  background-color: #aeabab;
+}
+
+.modal-content form button[type="button"]:hover {
+  background-color: #6d6b6b;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-button:hover, .save-button:hover {
+background-color: #2f8d39;
+}
+.delete-button {
+  width: 100px;
+  color: #fff;
+  background-color: #d63232;
+  padding: 10px;
+  border-radius: 10px;
+  margin-right: 10px;
+  border: none;
+  
+}
+
+.delete-button:hover {
+  background-color: #b01d1d;
+}
+
+.cancel-button { 
+  width: 100px;
+  color: #fff;
+  background-color: #aeabab;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.cancel-button:hover {
+  background-color: #6d6b6b;
+}
+
+.error {
+  font-weight: bold;
+}
+
+
+
+

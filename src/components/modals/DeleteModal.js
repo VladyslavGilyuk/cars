@@ -13,12 +13,8 @@ const DeleteModal = ({ carId, onClose, deleteCar }) => {
         <h2>Delete Car</h2>
         <p>Are you sure you want to delete this car?</p>
         <div className="button-container">
-          <button className="delete-button" onClick={handleDelete}>
-            Delete
-          </button>
-          <button className="cancel-button" onClick={onClose}>
-            Cancel
-          </button>
+          <button className="delete-button" onClick={handleDelete}>Delete </button>
+          <button className="cancel-button" onClick={onClose}>Cancel</button>
         </div>
       </div>
     </div>

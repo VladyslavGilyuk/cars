@@ -2,7 +2,6 @@ import { useState } from "react";
 import "../../styles/modal.css"
 
 const EditModal = ({ carId, onClose, editCar }) => {
-  // Add state variables and update functions for editable fields
   const [carColor, setCarColor] = useState("");
   const [carPrice, setCarPrice] = useState("");
   const [carAvailability, setCarAvailability] = useState("available");

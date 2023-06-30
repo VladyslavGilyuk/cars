@@ -4,7 +4,6 @@ import Table from "./components/Table";
 import AddCarButton from "./components/buttons/AddCarButton";
 import ShowAllCarsButton from "./components/buttons/ShowAllCarsButton";
 import FetchModal from "./components/modals/FetchModal";
-
 import './styles/app.css';
 
 const App = () => {
@@ -23,18 +22,16 @@ const App = () => {
       ? parseInt(localStorage.getItem("searchedPage"))
       : 1
   );
-  
-    
- // Add a loading state variable
-    
+   
   const API = 'https://myfakeapi.com/api/cars/';
   const pageSize = 10;
 
+  //Get Data
   useEffect(() => {
     const savedCars = localStorage.getItem("cars");
     if (savedCars && savedCars !== []) {
       setCars(JSON.parse(savedCars));
-      setFetching(false); // Update the loading state once data is loaded
+      setFetching(false);
     } else {
       fetch(API)
         .then(res => res.json())
@@ -48,42 +45,43 @@ const App = () => {
         })
         .catch(error => {
           console.error(error);
-          // Set the error state variable if an error occurred
           setFetching(false);
         })
         .finally(() => {
-          setFetching(false); // Update the loading state regardless of success or failure
+          setFetching(false);
         });
     }
   }, []);
   
-
+  // Load saved page and search input from localStorage on initial render
   useEffect(() => {
-  const savedPage = localStorage.getItem("currentPage");
-  const savedSearchInput = localStorage.getItem("searchInput");
-  if (savedPage) {
-    setCurrentPage(parseInt(savedPage));
-  }
-  if (savedSearchInput) {
-    setSearchInput(savedSearchInput);
-  }
-}, []);
+    const savedPage = localStorage.getItem("currentPage");
+    const savedSearchInput = localStorage.getItem("searchInput");
+    if (savedPage) {
+      setCurrentPage(parseInt(savedPage));
+    }
+    if (savedSearchInput) {
+      setSearchInput(savedSearchInput);
+    }
+  }, []);
 
-useEffect(() => {
-  localStorage.setItem("currentPage", currentPage);
-  localStorage.setItem("searchInput", searchInput);
-}, [currentPage, searchInput]);
+  // Save current page and search input on change
+  useEffect(() => {
+    localStorage.setItem("currentPage", currentPage);
+    localStorage.setItem("searchInput", searchInput);
+  }, [currentPage, searchInput]);
 
-useEffect(() => {
-  localStorage.setItem("currentPage", currentPage);
-  if (searchInput.length > 0) {
-    localStorage.setItem("searchedPage", searchedPage);
-  } else {
-    localStorage.removeItem("searchedPage");
-  }
-}, [currentPage, searchInput, searchedPage]);
+  // Save searched page or remove it
+  useEffect(() => {
+    localStorage.setItem("currentPage", currentPage);
+    if (searchInput.length > 0) {
+      localStorage.setItem("searchedPage", searchedPage);
+    } else {
+      localStorage.removeItem("searchedPage");
+    }
+  }, [currentPage, searchInput, searchedPage]);
 
-
+  // Filter cars based on the search input
   useEffect(() => {
     if (searchInput.length > 0) {
       const filteredCars = cars.filter((car) => {
@@ -112,24 +110,27 @@ useEffect(() => {
     }
   }, [searchInput, cars]);
 
+  // Get the data for the current page of searched cars
   const searchedTableData = searchedCars.slice(
     (searchedPage - 1) * pageSize,
     searchedPage * pageSize
   );
 
-const handleChange = (e) => {
-  e.preventDefault();
-  setSearchInput(e.target.value);
-  setUpdatedPage(1); 
-  // Reset to the first page
-};
+  // Handle search input change
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value);
+    setUpdatedPage(1); 
+  };
 
-const deleteCar = (carId) => {
-  const updatedCars = cars.filter((car) => car.id !== carId);
-  setCars(updatedCars);
-  localStorage.setItem("cars", JSON.stringify(updatedCars));
-};
+   // Delete car
+  const deleteCar = (carId) => {
+    const updatedCars = cars.filter((car) => car.id !== carId);
+    setCars(updatedCars);
+    localStorage.setItem("cars", JSON.stringify(updatedCars));
+  };
 
+  // Edit car
   const editCar = (carId, carColor, carPrice, carAvailability) => {
     const updatedCars = cars.map((car) => {
       if (car.id === carId) {
@@ -146,44 +147,38 @@ const deleteCar = (carId) => {
     setCars(updatedCars);
     localStorage.setItem("cars", JSON.stringify(updatedCars))
   };
+
+  // Add new car
   const addCar = (newCar) => {
-    // Generate a new ID for the car
     const newId = cars.length > 0 ? cars[cars.length - 1].id + 1 : 1;
-  
-    // Create a new car object with the generated ID
     const carWithId = { ...newCar, id: newId };
-  
-    // Update the cars state with the new car
     const updatedCars = [...cars, carWithId]
     setCars(updatedCars);
     localStorage.setItem("cars", JSON.stringify(updatedCars))
   };
   
+  // Show all cars (reset search and pagination)
   const showAllCars = (cars) => {
     setCars(cars);
-    setSearchedCars([]); // Clear the searched cars
-    setSearchInput(""); // Clear the search input
+    setSearchedCars([]);
+    setSearchInput("");
     setCurrentPage(1)
     localStorage.setItem("cars", JSON.stringify(cars));
   };
+
+  // Hide or show ShowAllCarsButton
   const showAllCarsButtonVisible = searchInput.length > 0 ?  "visible" : "hidden";
 
-  console.log(showAllCarsButtonVisible)
   return (
     <div className="App">
-    <div className="upper-container">
-    <div style={{ visibility: showAllCarsButtonVisible }}>
-        <ShowAllCarsButton
-          className="show-all-car-button"
-          cars={cars}
-          showAllCars={showAllCars}
-          setSearchInput={setSearchInput}
-        />
-      </div>
+      <div className="upper-container">
+        <div style={{ visibility: showAllCarsButtonVisible }}>
+            <ShowAllCarsButton className="show-all-car-button" cars={cars} showAllCars={showAllCars} setSearchInput={setSearchInput} />
+        </div>
         <SearchBar className="search-bar" searchInput={searchInput} handleChange={handleChange} />
         <AddCarButton className="add-car-button" addCar={addCar} />
-    </div>
-       
+      </div>
+
       <Table
         cars={cars}
         setCars={setCars}

@@ -3,7 +3,7 @@ import EditModal from "../modals/EditModal";
 import DeleteModal from "../modals/DeleteModal";
 import "../../styles/buttons/dropdownButton.css";
 
-const DropdownButton = ({ carId, deleteCar, editCar}) => {
+const DropdownButton = ({ carId, deleteCar, editCar }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
