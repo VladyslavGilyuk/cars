@@ -18,7 +18,7 @@
   }
   
   .dropdown-content div {
-    padding: 8px 5px;
+    padding: 13px 5px;
   }
   
   .dropdown-content div:hover {
@@ -30,6 +30,6 @@
   }
   
   .dropdown:hover .dropbtn {
-    background-color: #0f6140;
+    background-color: #2f8d39;
   }
   

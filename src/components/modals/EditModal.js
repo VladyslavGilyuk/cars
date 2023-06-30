@@ -6,13 +6,15 @@ const EditModal = ({ carId, onClose, editCar }) => {
   const [carColor, setCarColor] = useState("");
   const [carPrice, setCarPrice] = useState("");
   const [carAvailability, setCarAvailability] = useState("available");
-
+  const [priceError, setPriceError] = useState("");
+  
   const handleColorChange = (e) => {
     setCarColor(e.target.value);
   };
 
   const handlePriceChange = (e) => {
     setCarPrice(e.target.value);
+    setPriceError(e.target.value.match(/^\$[0-9]+(\.[0-9]{2})?$/) ? "" : "Price must be a number starting with '$'");
   };
 
   const handleAvailabilityChange = (e) => {
@@ -21,6 +23,9 @@ const EditModal = ({ carId, onClose, editCar }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (priceError) {
+      return; // Don't submit if there's an error
+    }
     editCar(carId, carColor, carPrice, carAvailability)
     onClose();
   };
@@ -31,31 +36,19 @@ const EditModal = ({ carId, onClose, editCar }) => {
         <h2>Edit Car</h2>
         <form onSubmit={handleSubmit}>
           <label>Color:</label>
-          <input
-            type="text"
-            value={carColor}
-            onChange={handleColorChange}
-            required
-          />
+          <input type="text" value={carColor} onChange={handleColorChange} required />
 
           <label>Price:</label>
-          <input
-            type="text"
-            value={carPrice}
-            onChange={handlePriceChange}
-            required
-          />
+          <input type="text"  value={carPrice} onChange={handlePriceChange} required />
+          {priceError && <span className="error">{priceError}</span>}
 
           <label>Availability:</label>
-          <select
-            value={"available"}
-            onChange={handleAvailabilityChange}
-          >
+          <select value={"available"} onChange={handleAvailabilityChange}>
             <option value="available">Available</option>
             <option value="unavailable">Unavailable</option>
           </select>
 
-          <button type="submit">Save</button>
+          <button className="save-button" type="submit">Save</button>
           <button type="button" onClick={onClose}>
             Cancel
           </button>

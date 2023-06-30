@@ -15,7 +15,7 @@ const AddCarButton = ({addCar}) => {
 
   return (
     <div>
-      <button onClick={openAddModal}>Add Car</button>
+      <button id="add-car-button" onClick={openAddModal}>Add Car</button>
       
       {addModalOpen && (
         <AddModal onClose={closeAddModal} addCar={addCar} />

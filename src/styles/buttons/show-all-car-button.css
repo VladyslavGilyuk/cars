@@ -1,3 +1,11 @@
-.show-all-cars-button {
-    margin-bottom: 10px;
-  }
+#show-all-car-button  {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#show-all-car-button:hover {
+  background-color: #2f8d39;
+}

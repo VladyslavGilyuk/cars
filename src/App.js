@@ -3,6 +3,8 @@ import SearchBar from "./components/SearchBar";
 import Table from "./components/Table";
 import AddCarButton from "./components/buttons/AddCarButton";
 import ShowAllCarsButton from "./components/buttons/ShowAllCarsButton";
+import FetchModal from "./components/modals/FetchModal";
+
 import './styles/app.css';
 
 const App = () => {
@@ -10,6 +12,7 @@ const App = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchedCars, setSearchedCars] = useState([]);
   const [updatedPage, setUpdatedPage] = useState(1);
+  const [fetching, setFetching] = useState(true);
   const [currentPage, setCurrentPage] = useState(
     localStorage.getItem("currentPage")
       ? parseInt(localStorage.getItem("currentPage"))
@@ -22,7 +25,8 @@ const App = () => {
   );
   
     
-  
+ // Add a loading state variable
+    
   const API = 'https://myfakeapi.com/api/cars/';
   const pageSize = 10;
 
@@ -30,16 +34,29 @@ const App = () => {
     const savedCars = localStorage.getItem("cars");
     if (savedCars && savedCars !== []) {
       setCars(JSON.parse(savedCars));
+      setFetching(false); // Update the loading state once data is loaded
     } else {
       fetch(API)
         .then(res => res.json())
         .then(data => {
-          setCars(data.cars);
-          localStorage.setItem("cars", JSON.stringify(data.cars));
-          console.log(data.cars)
+          if (data && data.cars) {
+            setCars(data.cars);
+            localStorage.setItem("cars", JSON.stringify(data.cars));
+          } else {
+            throw new Error("Failed to fetch API data.");
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          // Set the error state variable if an error occurred
+          setFetching(false);
+        })
+        .finally(() => {
+          setFetching(false); // Update the loading state regardless of success or failure
         });
     }
   }, []);
+  
 
   useEffect(() => {
   const savedPage = localStorage.getItem("currentPage");
@@ -183,6 +200,7 @@ const deleteCar = (carId) => {
         searchedPage={searchedPage}
         setSearchedPage={setSearchedPage}
       />
+      {fetching && <FetchModal>Fetching Data...</FetchModal>}
     </div>
   );
 }

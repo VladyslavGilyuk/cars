@@ -25,7 +25,7 @@ const DropdownButton = ({ carId, deleteCar, editCar}) => {
 
   return (
     <span className="dropdown">
-      <button className="dropbtn">Dropdown</button>
+      <button className="dropbtn">Change</button>
       <div className="dropdown-content">
         <div onClick={handleEditClick}>Edit</div>
         <div onClick={handleDeleteClick}>Delete</div>

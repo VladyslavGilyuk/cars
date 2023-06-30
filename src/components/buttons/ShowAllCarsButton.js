@@ -9,7 +9,7 @@ const ShowAllCarsButton = ({ cars, showAllCars, setSearchInput }) => {
 
   return (
     <div>
-      <button onClick={handleShowClick}>Go back to All Cars</button>
+      <button id="show-all-car-button" onClick={handleShowClick}>Go back to All Cars</button>
     </div>
   );
 };
