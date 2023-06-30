@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import Table from "./components/Table";
-import AddCarButton from "./components/AddCarButton";
+import AddCarButton from "./components/buttons/AddCarButton";
 
 const App = () => {
   const [cars, setCars] = useState([]);

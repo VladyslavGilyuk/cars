@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddModal from "./modals/AddModal";
+import AddModal from "../modals/AddModal";
 
 
 const AddCarButton = ({addCar}) => {

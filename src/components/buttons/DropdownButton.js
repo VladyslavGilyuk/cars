@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import EditModal from "./modals/EditModal";
-import DeleteModal from "./modals/DeleteModal";
-import "../styles/dropdownButton.css";
+import EditModal from "../modals/EditModal";
+import DeleteModal from "../modals/DeleteModal";
+import "../../styles/dropdownButton.css";
 
 const DropdownButton = ({ carId, deleteCar, editCar}) => {
   const [showEditModal, setShowEditModal] = useState(false);
