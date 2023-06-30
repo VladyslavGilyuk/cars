@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import Table from "./components/Table";
 import AddCarButton from "./components/buttons/AddCarButton";
+import ShowAllCarsButton from "./components/buttons/ShowAllCarsButton";
 
 const App = () => {
   const [cars, setCars] = useState([]);
@@ -140,9 +141,19 @@ const deleteCar = (carId) => {
     localStorage.setItem("cars", JSON.stringify(updatedCars))
   };
   
+  const showAllCars = (cars) => {
+    setCars(cars);
+    setSearchedCars([]); // Clear the searched cars
+    setSearchInput(""); // Clear the search input
+    setCurrentPage(currentPage)
+    localStorage.setItem("cars", JSON.stringify(cars));
+  };
   
   return (
     <div className="App">
+        {searchedCars.length > 0 && (
+      <ShowAllCarsButton cars={cars} showAllCars={showAllCars} setSearchInput={setSearchInput}  />
+      )}
       <SearchBar searchInput={searchInput} handleChange={handleChange} />
       <AddCarButton addCar={addCar} />
       <Table
@@ -160,7 +171,6 @@ const deleteCar = (carId) => {
         setCurrentPage={setCurrentPage}
         searchedPage={searchedPage}
         setSearchedPage={setSearchedPage}
-        
       />
     </div>
   );
