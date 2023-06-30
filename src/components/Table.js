@@ -17,6 +17,13 @@ const Table = ({ cars, searchedTableData, searchedCars, searchedPage, setSearche
     );
   }, [currentPage, pageSize, cars, searchedCars]);
   
+  //deleting the last row from the page switches to the previous page,
+  if (
+    currentTableData.length === 0 &&
+    currentPage !== 1
+  ) {
+    setCurrentPage(currentPage - 1);
+  }
 
   return (
     <>
