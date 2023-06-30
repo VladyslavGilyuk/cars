@@ -3,7 +3,7 @@ import Rows from "./Rows";
 import Pagination from './Pagination';
 import '../styles/pagination.css';
 
-const Table = ({ cars, searchedTableData, searchedCars, updatedPage, setUpdatedPage, deleteCar, editCar, currentPage, setCurrentPage }) => {
+const Table = ({ cars, searchedTableData, searchedCars, searchedPage, setSearchedPage, deleteCar, editCar, currentPage, setCurrentPage }) => {
   
   const pageSize = 10;
 
@@ -11,8 +11,12 @@ const Table = ({ cars, searchedTableData, searchedCars, updatedPage, setUpdatedP
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
-    return cars.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, cars]);
+    return (
+      searchedCars.length > 0 ? searchedCars.slice(firstPageIndex, lastPageIndex)
+      : cars.slice(firstPageIndex, lastPageIndex)
+    );
+  }, [currentPage, pageSize, cars, searchedCars]);
+  
 
   return (
     <>
@@ -34,12 +38,15 @@ const Table = ({ cars, searchedTableData, searchedCars, updatedPage, setUpdatedP
         </tbody>
       </table>
       <Pagination
-        className="pagination-bar"
-        currentPage={searchedCars && searchedCars.length > 0 ? updatedPage : currentPage}
-        totalCount={searchedCars && searchedCars.length > 0 ? searchedCars.length : cars.length}
-        pageSize={pageSize}
-        onPageChange={page => searchedCars && searchedCars.length > 0 ? setUpdatedPage(page) : setCurrentPage(page)}
-      />
+  className="pagination-bar"
+  currentPage={searchedCars.length > 0 ? searchedPage : currentPage}
+  totalCount={searchedCars.length > 0 ? searchedCars.length : cars.length}
+  pageSize={pageSize}
+  onPageChange={(page) =>
+    searchedCars.length > 0 ? setSearchedPage(page) : setCurrentPage(page)
+  }
+/>
+
     </>
   );
 }

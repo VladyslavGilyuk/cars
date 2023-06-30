@@ -12,7 +12,12 @@ const App = () => {
       ? parseInt(localStorage.getItem("currentPage"))
       : 1
   );
-
+  const [searchedPage, setSearchedPage] = useState(
+    localStorage.getItem("searchedPage")
+      ? parseInt(localStorage.getItem("searchedPage"))
+      : 1
+  );
+  
     
   
   const API = 'https://myfakeapi.com/api/cars/';
@@ -49,7 +54,16 @@ useEffect(() => {
   localStorage.setItem("searchInput", searchInput);
 }, [currentPage, searchInput]);
 
-  
+useEffect(() => {
+  localStorage.setItem("currentPage", currentPage);
+  if (searchInput.length > 0) {
+    localStorage.setItem("searchedPage", searchedPage);
+  } else {
+    localStorage.removeItem("searchedPage");
+  }
+}, [currentPage, searchInput, searchedPage]);
+
+
   useEffect(() => {
     if (searchInput.length > 0) {
       const filteredCars = cars.filter((car) => {
@@ -86,30 +100,15 @@ useEffect(() => {
 const handleChange = (e) => {
   e.preventDefault();
   setSearchInput(e.target.value);
-  setUpdatedPage(1); // Reset to the first page
+  setUpdatedPage(1); 
+  // Reset to the first page
 };
 
 const deleteCar = (carId) => {
   const updatedCars = cars.filter((car) => car.id !== carId);
   setCars(updatedCars);
-  setSearchedCars(updatedCars);
-
-  // Calculate the new page number based on the position of the deleted row
-  const totalRows = updatedCars.length;
-  const currentPageIndex = (currentPage - 1) * pageSize;
-
-  // Check if the deleted row is the last row on the current page
-  if (currentPageIndex >= totalRows && currentPage > 1) {
-    const newPage = Math.ceil(totalRows / pageSize);
-    setUpdatedPage(newPage); // Go to the last page if the deleted row was the last row on the current page
-    setCurrentPage(newPage); // Update the currentPage state to reflect the new page
-  } else {
-    setUpdatedPage(currentPage); // Stay on the current page
-  }
-
   localStorage.setItem("cars", JSON.stringify(updatedCars));
 };
-
 
   const editCar = (carId, carColor, carPrice, carAvailability) => {
     const updatedCars = cars.map((car) => {
@@ -125,18 +124,6 @@ const deleteCar = (carId) => {
     });
 
     setCars(updatedCars);
-    setSearchedCars(updatedCars);
-    const totalRows = updatedCars.length;
-  const currentPageIndex = (currentPage - 1) * pageSize;
-
-  // Check if the deleted row is the last row on the current page
-  if (currentPageIndex >= totalRows && currentPage > 1) {
-    const newPage = Math.ceil(totalRows / pageSize);
-    setUpdatedPage(newPage); // Go to the last page if the deleted row was the last row on the current page
-    setCurrentPage(newPage); // Update the currentPage state to reflect the new page
-  } else {
-    setUpdatedPage(currentPage); // Stay on the current page
-  }
     localStorage.setItem("cars", JSON.stringify(updatedCars))
   };
 
@@ -156,6 +143,8 @@ const deleteCar = (carId) => {
         editCar={editCar}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        searchedPage={searchedPage}
+        setSearchedPage={setSearchedPage}
       />
     </div>
   );
