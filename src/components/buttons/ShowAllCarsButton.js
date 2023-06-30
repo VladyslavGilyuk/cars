@@ -1,4 +1,5 @@
 import React from "react";
+import '../../styles/buttons/show-all-car-button.css';
 
 const ShowAllCarsButton = ({ cars, showAllCars, setSearchInput }) => {
   const handleShowClick = () => {

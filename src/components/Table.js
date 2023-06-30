@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import DropdownButton from "./buttons/DropdownButton";
 import Pagination from './Pagination';
 import '../styles/pagination.css';
+import '../styles/table.css';
 
 const Table = ({ cars, searchedTableData, searchedCars, searchedPage, setSearchedPage, deleteCar, editCar, currentPage, setCurrentPage }) => {
 

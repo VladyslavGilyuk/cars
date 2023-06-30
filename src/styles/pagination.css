@@ -66,4 +66,15 @@
     background-color: transparent;
     cursor: default;
   }
+
+  .pagination-bar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust as needed */
+  }
+  
+  .pagination-item {
+    margin: 0 5px; /* Adjust as needed */
+  }
+
   

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddModal from "../modals/AddModal";
-
+import '../../styles/buttons/add-car-button.css';
 
 const AddCarButton = ({addCar}) => {
   const [addModalOpen, setAddModalOpen] = useState(false);

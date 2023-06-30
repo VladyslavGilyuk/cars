@@ -3,6 +3,7 @@ import SearchBar from "./components/SearchBar";
 import Table from "./components/Table";
 import AddCarButton from "./components/buttons/AddCarButton";
 import ShowAllCarsButton from "./components/buttons/ShowAllCarsButton";
+import './styles/app.css';
 
 const App = () => {
   const [cars, setCars] = useState([]);
@@ -145,17 +146,27 @@ const deleteCar = (carId) => {
     setCars(cars);
     setSearchedCars([]); // Clear the searched cars
     setSearchInput(""); // Clear the search input
-    setCurrentPage(currentPage)
+    setCurrentPage(1)
     localStorage.setItem("cars", JSON.stringify(cars));
   };
-  
+  const showAllCarsButtonVisible = searchInput.length > 0 ?  "visible" : "hidden";
+
+  console.log(showAllCarsButtonVisible)
   return (
     <div className="App">
-        {searchedCars.length > 0 && (
-      <ShowAllCarsButton cars={cars} showAllCars={showAllCars} setSearchInput={setSearchInput}  />
-      )}
-      <SearchBar searchInput={searchInput} handleChange={handleChange} />
-      <AddCarButton addCar={addCar} />
+    <div className="upper-container">
+    <div style={{ visibility: showAllCarsButtonVisible }}>
+        <ShowAllCarsButton
+          className="show-all-car-button"
+          cars={cars}
+          showAllCars={showAllCars}
+          setSearchInput={setSearchInput}
+        />
+      </div>
+        <SearchBar className="search-bar" searchInput={searchInput} handleChange={handleChange} />
+        <AddCarButton className="add-car-button" addCar={addCar} />
+    </div>
+       
       <Table
         cars={cars}
         setCars={setCars}
