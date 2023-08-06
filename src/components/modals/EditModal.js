@@ -6,7 +6,7 @@ const EditModal = ({ carId, onClose, editCar }) => {
   const [carPrice, setCarPrice] = useState("");
   const [carAvailability, setCarAvailability] = useState("available");
   const [priceError, setPriceError] = useState("");
-  
+  // Functions to handle input changes for Car:
   const handleColorChange = (e) => {
     setCarColor(e.target.value);
   };
@@ -19,14 +19,15 @@ const EditModal = ({ carId, onClose, editCar }) => {
   const handleAvailabilityChange = (e) => {
     setCarAvailability(e.target.value);
   };
-
+  // Function to handle the form submission when editing a car
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Don't submit if there's a price error
     if (priceError) {
-      return; // Don't submit if there's an error
+      return;
     }
-    editCar(carId, carColor, carPrice, carAvailability)
-    onClose();
+    editCar(carId, carColor, carPrice, carAvailability) // Call the editCar function to update the car details
+    onClose(); // Close the modal after editing the car
   };
 
   return (

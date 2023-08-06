@@ -12,26 +12,26 @@ const Pagination = props => {
     pageSize,
     className
   } = props;
-
+  // Get the pagination range using the custom hook usePagination
   const paginationRange = usePagination({
     currentPage,
     totalCount,
     siblingCount,
     pageSize
   });
-
+  // If there is only one page or the pagination range has fewer than 2 items, don't display the pagination component
   if (currentPage === 0 || paginationRange.length < 2) {
     return null;
   }
-
+  // Function to handle the "Next" button click
   const onNext = () => {
     onPageChange(currentPage + 1);
   };
-
+  // Function to handle the "Previous" button click
   const onPrevious = () => {
     onPageChange(currentPage - 1);
   };
-
+  // Get the last page from the pagination range
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
     <ul

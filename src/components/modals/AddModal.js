@@ -12,7 +12,7 @@ const AddModal = ({ onClose, addCar }) => {
   const [yearError, setYearError] = useState("");
   const [priceError, setPriceError] = useState("");
   const [vinError, setVinError] = useState("");
-
+   // Functions to handle input changes for Car:
   const handleCarChange = (e) => {
     setCar(e.target.value);
   };
@@ -44,9 +44,10 @@ const AddModal = ({ onClose, addCar }) => {
   const handleCarAvailabilityChange = (e) => {
     setCarAvailability(e.target.value);
   };
-
+  // Function to handle the form submission when adding a new car
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Don't submit if there are errors in year, price, or VIN
     if (yearError || priceError || vinError) {
         return; // Don't submit if there's an error
       }
@@ -59,8 +60,8 @@ const AddModal = ({ onClose, addCar }) => {
       price: carPrice,
       availability: carAvailability === "available",
     };
-    addCar(newCar);
-    onClose();
+    addCar(newCar); // Call the addCar function to add the new car to the list
+    onClose(); // Close the modal after adding the car
   };
 
   return (
@@ -94,7 +95,7 @@ const AddModal = ({ onClose, addCar }) => {
             <option value="available">Available</option>
             <option value="unavailable">Unavailable</option>
           </select>
-
+            {/* Buttons to Add or Cancel */}
           <button className="add-button"  type="submit">Add</button>
           <button type="button" onClick={onClose}>Cancel</button>
           </form>

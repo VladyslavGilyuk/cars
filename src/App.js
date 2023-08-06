@@ -26,7 +26,7 @@ const App = () => {
   const API = 'https://myfakeapi.com/api/cars/';
   const pageSize = 10;
 
-  //Get Data
+  // Fetch data from API or load saved data from local storage on initial render
   useEffect(() => {
     const savedCars = localStorage.getItem("cars");
     if (savedCars && savedCars !== []) {

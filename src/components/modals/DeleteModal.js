@@ -2,9 +2,10 @@ import React from "react";
 import "../../styles/modal.css"
 
 const DeleteModal = ({ carId, onClose, deleteCar }) => {
+  // Function to handle car deletion
   const handleDelete = () => {
     deleteCar(carId)
-    onClose();
+    onClose(); // Close the modal after deleting the car
   };
 
   return (
